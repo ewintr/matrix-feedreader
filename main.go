@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+
 	logger := slog.New(slog.NewTextHandler(os.Stderr, nil))
 	mflx := bot.NewMiniflux(bot.MinifluxInfo{
 		Endpoint: getParam("MINIFLUX_ENDPOINT", "http://localhost:8080"),
