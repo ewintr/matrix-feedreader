@@ -27,7 +27,6 @@ type Matrix struct {
 	client       *mautrix.Client
 	cryptoHelper *cryptohelper.CryptoHelper
 	feedReader   *Miniflux
-	feed         chan Entry
 	logger       *slog.Logger
 }
 
