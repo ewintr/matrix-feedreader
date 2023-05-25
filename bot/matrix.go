@@ -110,9 +110,13 @@ func (m *Matrix) InviteHandler() (event.Type, mautrix.EventHandler) {
 func (m *Matrix) PostMessages() {
 	for entry := range m.feedReader.Feed() {
 		m.logger.Info("received entry", slog.String("title", entry.Title), slog.String("url", entry.URL))
-		formattedReply := format.RenderMarkdown(fmt.Sprintf("%s - %s - %s", entry.FeedTitle, entry.Title, entry.URL), true, false)
+		message := fmt.Sprintf(`%s: [%s](%s)`, entry.FeedTitle, entry.Title, entry.URL)
+		if entry.CommentsURL != "" {
+			message += fmt.Sprintf(" - [Comments](%s)", entry.CommentsURL)
+		}
+		formattedMessage := format.RenderMarkdown(message, true, false)
 
-		if _, err := m.client.SendMessageEvent(id.RoomID(m.config.RoomID), event.EventMessage, &formattedReply); err != nil {
+		if _, err := m.client.SendMessageEvent(id.RoomID(m.config.RoomID), event.EventMessage, &formattedMessage); err != nil {
 			m.logger.Error("failed to send message", slog.String("err", err.Error()))
 			return
 		}

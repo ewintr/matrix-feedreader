@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"os/signal"
+	"time"
 
 	"ewintr.nl/matrix-feedreader/bot"
 	"golang.org/x/exp/slog"
@@ -12,9 +13,15 @@ func main() {
 
 	logger := slog.New(slog.NewTextHandler(os.Stderr, nil))
 
+	interval, err := time.ParseDuration(getParam("MINIFLUX_INTERVAL", "10m"))
+	if err != nil {
+		logger.Error("error parsing interval: %v", slog.String("error", err.Error()))
+		os.Exit(1)
+	}
 	mflxConfig := bot.MinifluxInfo{
 		Endpoint: getParam("MINIFLUX_ENDPOINT", "http://localhost:8080"),
 		ApiKey:   getParam("MINIFLUX_API_KEY", "secret"),
+		Interval: interval,
 	}
 	mflx := bot.NewMiniflux(mflxConfig, logger)
 
