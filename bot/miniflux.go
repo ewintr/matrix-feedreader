@@ -36,7 +36,7 @@ func NewMiniflux(mflInfo MinifluxInfo, logger *slog.Logger) *Miniflux {
 }
 
 func (m *Miniflux) Run() {
-	ticker := time.NewTicker(5 * time.Second)
+	ticker := time.NewTicker(5 * time.Minute)
 	for {
 		select {
 		case <-ticker.C:
