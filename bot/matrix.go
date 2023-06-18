@@ -20,6 +20,7 @@ type MatrixConfig struct {
 	RoomID        string
 	DBPath        string
 	Pickle        string
+	AcceptInvites bool
 }
 
 type Matrix struct {
@@ -60,7 +61,9 @@ func (m *Matrix) Init() error {
 	}
 	m.client.Crypto = m.cryptoHelper
 
-	m.AddEventHandler(m.InviteHandler())
+	if m.config.AcceptInvites {
+		m.AddEventHandler(m.InviteHandler())
+	}
 
 	return nil
 }

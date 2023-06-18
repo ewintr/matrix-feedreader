@@ -33,6 +33,7 @@ func main() {
 		RoomID:        getParam("MATRIX_ROOM_ID", "!room:localhost"),
 		DBPath:        getParam("MATRIX_DB_PATH", "matrix.db"),
 		Pickle:        getParam("MATRIX_PICKLE", "matrix.pickle"),
+		AcceptInvites: getParam("MATRIX_ACCEPT_INVITES", "false") == "true",
 	}
 	mtrx := bot.NewMatrix(mtrxConf, mflx, logger)
 	if err := mtrx.Init(); err != nil {
