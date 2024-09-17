@@ -1,4 +1,4 @@
-module ewintr.nl/matrix-feedreader
+module go-mod.ewintr.nl/matrix-feedreader
 
 go 1.20
 

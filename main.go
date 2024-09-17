@@ -5,7 +5,7 @@ import (
 	"os/signal"
 	"time"
 
-	"ewintr.nl/matrix-feedreader/bot"
+	"go-mod.ewintr.nl/matrix-feedreader/bot"
 	"golang.org/x/exp/slog"
 )
 
